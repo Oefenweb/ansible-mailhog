@@ -1,0 +1,29 @@
+# {{ ansible_managed }}
+
+# mailhog
+
+description "MailHog"
+author      "Mischa ter Smitten"
+
+start on net-device-up
+stop on runlevel [01S6]
+
+respawn
+umask 022
+
+pre-start script
+  test -x {{ mailhog_install_prefix }}/mailhog || { stop; exit 0; }
+
+  install -d -o {{ mailhog_user }} -g {{ mailhog_group }} -m 0755 {{ mailhog_log_file | dirname }} || true
+end script
+
+script
+  exec start-stop-daemon \
+    --start \
+    --chuid {{ mailhog_user }} \
+    --make-pidfile \
+    --pidfile {{ mailhog_pid_file }} \
+    --exec {{ mailhog_install_prefix }}/mailhog \
+    --{% for key, value in mailhog_options.iteritems() %} -{{ key }} {{ value }}{% endfor %} \
+    >> {{ mailhog_log_file }} 2>&1
+end script

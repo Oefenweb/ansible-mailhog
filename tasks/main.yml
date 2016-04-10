@@ -1,0 +1,19 @@
+# tasks file for mailhog
+---
+- include: install.yml
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-install
+
+- include: user.yml
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-user
+
+- include: service.yml
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-service
