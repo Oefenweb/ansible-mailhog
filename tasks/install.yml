@@ -1,0 +1,34 @@
+# tasks file for mailhog
+---
+- name: create (download) directory
+  file:
+    path: "{{ mailhog_downloads_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - mailhog-install-download
+    - mailhog-install-download-directory
+
+- name: download
+  get_url:
+    url: "https://github.com/mailhog/MailHog/releases/download/{{ mailhog_version }}/MailHog_linux_{{ mailhog_machine_map[ansible_machine] }}"
+    dest: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
+    owner: root
+    group: root
+    mode: 0755
+  notify: restart mailhog
+  tags:
+    - mailhog-install-download
+    - mailhog-install-download-get
+
+- name: install
+  file:
+    src: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
+    dest: "{{ mailhog_install_prefix }}/mailhog"
+    state: link
+    force: true
+  tags:
+    - mailhog-install-install
+    - mailhog-install-install-symlink
