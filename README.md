@@ -17,13 +17,13 @@ None
 * `mailhog_group` [default: `mailhog`]: The primary group of the `mailhog` user
 * `mailhog_groups` [default: `[]`]: The secondary groups of the `mailhog` user
 
-* `mailhog_options: {}`]: Options to pass the the `mailhog` daemon (e.g. `{hostname: mailhog.test}`)
+* `mailhog_options: {}`]: Options to pass to the `mailhog` daemon (e.g. `{hostname: mailhog.test}`)
 
 ## Dependencies
 
 None
 
-#### Example (with any options)
+#### Example (without any options)
 
 ```yaml
 ---
