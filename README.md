@@ -10,7 +10,7 @@ None
 
 #### Variables
 
-* `mailhog_version` [default: `v0.2.0`]: Version to install
+* `mailhog_version` [default: `v0.2.1`]: Version to install
 * `mailhog_install_prefix` [default: `/usr/local/bin`]: Install prefix
 
 * `mailhog_user` [default: `mailhog`]: The user that will run the `mailhog` daemon
