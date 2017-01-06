@@ -12,8 +12,28 @@
     - mailhog
     - mailhog-user
 
-- include: service.yml
+- include: service-upstart.yml
+  when: ansible_distribution_version | version_compare('15.04', '<')
   tags:
     - configuration
     - mailhog
     - mailhog-service
+    - mailhog-service-upstart
+
+- include: service-systemd.yml
+  when: ansible_distribution_version | version_compare('15.04', '>=')
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-service
+    - mailhog-service-systemd
+
+- name: start and enable service
+  service:
+    name: mailhog
+    state: started
+    enabled: true
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-start-enable-service

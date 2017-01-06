@@ -1,0 +1,12 @@
+# tasks file for mailhog
+---
+- name: service | upstart | update script
+  template:
+    src: etc/init/mailhog.conf.j2
+    dest: /etc/init/mailhog.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart mailhog
+  tags:
+    - mailhog-service-upstart-update
