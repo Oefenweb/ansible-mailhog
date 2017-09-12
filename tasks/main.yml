@@ -13,7 +13,7 @@
     - mailhog-user
 
 - include: service-upstart.yml
-  when: ansible_distribution_version | version_compare('15.04', '<')
+  when: ansible_service_mgr != 'systemd'
   tags:
     - configuration
     - mailhog
@@ -21,7 +21,7 @@
     - mailhog-service-upstart
 
 - include: service-systemd.yml
-  when: ansible_distribution_version | version_compare('15.04', '>=')
+  when: ansible_service_mgr == 'systemd'
   tags:
     - configuration
     - mailhog
