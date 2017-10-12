@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+#
+# mailhog configure options
+
+DAEMON_ARGS='{% for key, value in mailhog_options.iteritems() %} -{{ key }} {{ value }}{% endfor %}'

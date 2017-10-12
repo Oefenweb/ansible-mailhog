@@ -1,0 +1,38 @@
+# tasks file for mailhog
+---
+- name: configure | stat directories
+  stat:
+    path: "{{ item }}/"
+  register: _stat_directories
+  with_items:
+    - "{{ mailhog_log_file | dirname }}"
+  tags:
+    - mailhog-configure-directories
+    - mailhog-configure-directories-stat
+
+- name: configure | create directories
+  file:
+    path: "{{ item.item }}"
+    state: directory
+    owner: "{{ mailhog_user }}"
+    group: "{{ mailhog_group }}"
+    mode: 0755
+  with_items: "{{ _stat_directories.results }}"
+  when: item.stat is defined and item.stat.exists == false
+  tags:
+    - mailhog-configure-directories
+    - mailhog-configure-directories-create
+
+- name: configure | update configuration file(s)
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - src: etc/default/mailhog.j2
+      dest: /etc/default/mailhog
+  notify: restart mailhog
+  tags:
+    - mailhog-configure-configuration

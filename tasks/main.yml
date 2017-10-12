@@ -1,5 +1,13 @@
 # tasks file for mailhog
 ---
+- name: facts | set
+  set_fact:
+     is_docker_guest: "{{ ansible_virtualization_role | default('host') == 'guest' and ansible_virtualization_type | default('none') == 'docker' }}"
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-facts
+
 - include: install.yml
   tags:
     - configuration
@@ -12,21 +20,36 @@
     - mailhog
     - mailhog-user
 
-- include: service-upstart.yml
-  when: ansible_service_mgr != 'systemd'
+- include: configure.yml
   tags:
     - configuration
     - mailhog
-    - mailhog-service
-    - mailhog-service-upstart
+    - mailhog-configure
 
-- include: service-systemd.yml
-  when: ansible_service_mgr == 'systemd'
+- block:
+    - include: service-initd.yml
+  when: is_docker_guest
   tags:
     - configuration
     - mailhog
     - mailhog-service
-    - mailhog-service-systemd
+    - mailhog-service-initd
+
+- block:
+    - include: service-upstart.yml
+      when: ansible_service_mgr != 'systemd'
+      tags:
+        - mailhog-service-upstart
+
+    - include: service-systemd.yml
+      when: ansible_service_mgr == 'systemd'
+      tags:
+        - mailhog-service-systemd
+  when: not is_docker_guest
+  tags:
+    - configuration
+    - mailhog
+    - mailhog-service
 
 - name: start and enable service
   service:

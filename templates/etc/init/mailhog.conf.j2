@@ -12,18 +12,19 @@ respawn
 umask 022
 
 pre-start script
-  test -x {{ mailhog_install_prefix }}/mailhog || { stop; exit 0; }
-
-  install -d -o {{ mailhog_user }} -g {{ mailhog_group }} -m 0755 {{ mailhog_log_file | dirname }} || true
+  /usr/bin/test -x {{ mailhog_install_prefix }}/mailhog
 end script
 
 script
+  set -a
+  [ -r /etc/default/mailhog ] && . /etc/default/mailhog
+
   exec start-stop-daemon \
     --start \
     --chuid {{ mailhog_user }} \
     --make-pidfile \
     --pidfile {{ mailhog_pid_file }} \
     --exec {{ mailhog_install_prefix }}/mailhog \
-    --{% for key, value in mailhog_options.iteritems() %} -{{ key }} {{ value }}{% endfor %} \
+    -- ${DAEMON_ARGS} \
     >> {{ mailhog_log_file }} 2>&1
 end script
