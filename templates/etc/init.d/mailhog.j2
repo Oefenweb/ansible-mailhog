@@ -4,8 +4,8 @@
 #
 ### BEGIN INIT INFO
 # Provides:          mailhog
-# Required-Start:    $syslog $remote_fs
-# Required-Stop:     $syslog $remote_fs
+# Required-Start:    $network $remote_fs
+# Required-Stop:     $network $remote_fs
 # Should-Start:      $local_fs
 # Should-Stop:       $local_fs
 # Default-Start:     2 3 4 5
@@ -37,7 +37,7 @@ case $1 in
   log_daemon_msg "Starting the process" "$NAME"
   # Start the daemon with the help of start-stop-daemon
   # Log the message appropriately
-  if start-stop-daemon --start --quiet --oknodo --background --chuid {{ mailhog_user }}:{{ mailhog_group }} --make-pidfile --pidfile {{ mailhog_pid_file }} --exec $DAEMON -- $DAEMON_ARGS >> {{ mailhog_log_file }} 2>&1; then
+  if start-stop-daemon --start --quiet --oknodo --background --chuid {{ mailhog_user }}:{{ mailhog_group }} --make-pidfile --pidfile $PIDFILE --exec $DAEMON -- $DAEMON_ARGS >> {{ mailhog_log_file }} 2>&1; then
    log_end_msg 0
   else
    log_end_msg 1
