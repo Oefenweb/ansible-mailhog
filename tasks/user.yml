@@ -3,6 +3,7 @@
 - name: add group
   group:
     name: "{{ item }}"
+    system: true
   with_flattened:
     - "{{ mailhog_group }}"
     - "{{ mailhog_groups }}"
@@ -13,6 +14,7 @@
 - name: add user
   user:
     name: "{{ mailhog_user }}"
+    system: true
     group: "{{ mailhog_group }}"
     groups: "{{ mailhog_groups | join(',') }}"
     home: /var/mailhog
