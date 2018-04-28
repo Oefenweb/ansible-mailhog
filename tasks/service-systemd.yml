@@ -2,8 +2,8 @@
 ---
 - name: service | systemd | update script
   template:
-    src: templates/lib/systemd/system/mailhog.j2
-    dest: /lib/systemd/system/mailhog.service
+    src: etc/systemd/system/mailhog.j2
+    dest: /etc/systemd/system/mailhog.service
     owner: root
     group: root
     mode: 0644
