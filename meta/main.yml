@@ -1,6 +1,7 @@
 # meta file for mailhog
 ---
 galaxy_info:
+  role_name: mailhog
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Set up (the latest version of) MailHog in Ubuntu systems
