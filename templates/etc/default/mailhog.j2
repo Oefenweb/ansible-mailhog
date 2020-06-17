@@ -2,4 +2,4 @@
 #
 # mailhog configure options
 
-DAEMON_ARGS='{% for key, value in mailhog_options.iteritems() %} -{{ key }} {{ value }}{% endfor %}'
+DAEMON_ARGS='{% for key, value in mailhog_options.items() %} -{{ key }} {{ value }}{% endfor %}'
