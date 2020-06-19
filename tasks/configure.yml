@@ -18,7 +18,7 @@
     group: "{{ mailhog_group }}"
     mode: 0755
   with_items: "{{ _stat_directories.results }}"
-  when: item.stat is defined and item.stat.exists == false
+  when: item.stat is defined and not item.stat.exists
   tags:
     - mailhog-configure-directories
     - mailhog-configure-directories-create
