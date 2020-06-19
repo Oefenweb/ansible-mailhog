@@ -2,8 +2,8 @@
 ---
 - name: service | systemd | update script
   template:
-    src: etc/systemd/system/mailhog.j2
-    dest: /etc/systemd/system/mailhog.service
+    src: "{{ mailhog_etc_systemd_file.lstrip('/') }}.j2"
+    dest: "{{ mailhog_etc_systemd_file }}"
     owner: root
     group: root
     mode: 0644

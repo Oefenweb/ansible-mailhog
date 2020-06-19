@@ -20,7 +20,7 @@ PIDFILE={{ mailhog_pid_file }}
 
 . /lib/lsb/init-functions
 
-[ -r /etc/default/${NAME} ] && . /etc/default/${NAME}
+[ -r {{ mailhog_etc_default_file }} ] && . {{ mailhog_etc_default_file }}
 /usr/bin/test -x ${DAEMON}
 
 case $1 in

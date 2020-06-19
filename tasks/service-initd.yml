@@ -2,8 +2,8 @@
 ---
 - name: service | initd | update script
   template:
-    src: etc/init.d/mailhog.j2
-    dest: /etc/init.d/mailhog
+    src: "{{ mailhog_etc_init_d_file.lstrip('/') }}.j2"
+    dest: "{{ mailhog_etc_init_d_file }}"
     owner: root
     group: root
     mode: 0755

@@ -10,3 +10,8 @@ mailhog_machine_map:
 
 mailhog_log_file: /var/log/mailhog/mailhog.log
 mailhog_pid_file: /var/run/mailhog.pid
+
+mailhog_etc_default_file: /etc/default/mailhog
+mailhog_etc_init_d_file: /etc/init.d/mailhog
+mailhog_etc_systemd_file: /etc/systemd/system/mailhog.service
+mailhog_etc_init_file: /etc/init/mailhog.conf

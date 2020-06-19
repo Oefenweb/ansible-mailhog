@@ -1,6 +1,7 @@
 ## mailhog
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-mailhog.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-mailhog) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-mailhog-blue.svg)](https://galaxy.ansible.com/Oefenweb/mailhog/)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-mailhog.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-mailhog)
+[![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-mailhog-blue.svg)](https://galaxy.ansible.com/Oefenweb/mailhog/)
 
 Set up (the latest version of) [MailHog](https://github.com/mailhog/MailHog) in Ubuntu systems.
 

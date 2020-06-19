@@ -6,7 +6,7 @@ After=network.target
 
 [Service]
 Type=simple
-EnvironmentFile=-/etc/default/mailhog
+EnvironmentFile=-{{ mailhog_etc_default_file }}
 ExecStartPre=/usr/bin/test -x {{ mailhog_install_prefix }}/mailhog
 ExecStart=/bin/sh -c '{{ mailhog_install_prefix }}/mailhog ${DAEMON_ARGS} >> {{ mailhog_log_file }} 2>&1'
 PIDFile={{ mailhog_pid_file }}

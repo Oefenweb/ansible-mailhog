@@ -17,7 +17,7 @@ end script
 
 script
   set -a
-  [ -r /etc/default/mailhog ] && . /etc/default/mailhog
+  [ -r {{ mailhog_etc_default_file }} ] && . {{ mailhog_etc_default_file }}
 
   exec start-stop-daemon \
     --start \
