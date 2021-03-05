@@ -11,7 +11,7 @@
 
 - name: test smtp installation
   shell: >
-    echo QUIT | nc 127.0.0.1 1025
+    echo QUIT | nc -q 1 127.0.0.1 1025
     | grep -q '220'
     && (echo 'Availability test: pass' && exit 0)
     || (echo 'Availability test: fail' && exit 1)
