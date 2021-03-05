@@ -1,0 +1,4 @@
+# vars file for mailhog
+---
+mailhog_options:
+  hostname: "{{ inventory_hostname }}"
