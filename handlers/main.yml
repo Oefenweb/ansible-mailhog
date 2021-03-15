@@ -1,4 +1,4 @@
-# handlers file for mailhog
+# handlers file
 ---
 - name: restart mailhog
   service:

@@ -1,4 +1,4 @@
-# defaults file for mailhog
+# defaults file
 ---
 mailhog_version: v1.0.0
 mailhog_install_prefix: /usr/local/bin

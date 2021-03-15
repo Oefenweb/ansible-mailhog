@@ -1,4 +1,4 @@
-# vars file for mailhog
+# vars file
 ---
 mailhog_downloads_path: /var/lib/ansible/mailhog/downloads
 

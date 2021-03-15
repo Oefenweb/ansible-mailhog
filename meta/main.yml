@@ -1,6 +1,7 @@
-# meta file for mailhog
+# meta file
 ---
 galaxy_info:
+  namespace: oefenweb
   role_name: mailhog
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.

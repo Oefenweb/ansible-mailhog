@@ -1,4 +1,4 @@
-# tasks file for mailhog
+# tasks file
 ---
 - name: configure | stat directories
   stat:
