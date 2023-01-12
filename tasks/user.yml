@@ -1,18 +1,16 @@
 # tasks file
 ---
 - name: add group
-  group:
+  ansible.builtin.group:
     name: "{{ item }}"
     system: true
-  with_flattened:
-    - "{{ mailhog_group }}"
-    - "{{ mailhog_groups }}"
+  with_items: "{{ [mailhog_group] + mailhog_groups }}"
   tags:
     - mailhog-user-add
     - mailhog-user-add-group
 
 - name: add user
-  user:
+  ansible.builtin.user:
     name: "{{ mailhog_user }}"
     system: true
     group: "{{ mailhog_group }}"

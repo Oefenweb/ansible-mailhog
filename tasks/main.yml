@@ -1,58 +1,66 @@
 # tasks file
 ---
 - name: facts | set
-  set_fact:
+  ansible.builtin.set_fact:
     is_docker_guest: "{{ ansible_virtualization_role | default('host') == 'guest' and ansible_virtualization_type | default('none') == 'docker' }}"
   tags:
     - configuration
     - mailhog
     - mailhog-facts
 
-- include: install.yml
+- name: install
+  ansible.builtin.import_tasks: install.yml
   tags:
     - configuration
     - mailhog
     - mailhog-install
 
-- include: user.yml
+- name: user
+  ansible.builtin.import_tasks: user.yml
   tags:
     - configuration
     - mailhog
     - mailhog-user
 
-- include: configure.yml
+- name: configure
+  ansible.builtin.import_tasks: configure.yml
   tags:
     - configuration
     - mailhog
     - mailhog-configure
 
-- block:
-    - include: service-initd.yml
+- name: docker
   when: is_docker_guest
   tags:
     - configuration
     - mailhog
     - mailhog-service
     - mailhog-service-initd
+  block:
+    - name: initd
+      ansible.builtin.import_tasks: service-initd.yml
 
-- block:
-    - include: service-upstart.yml
-      when: ansible_service_mgr != 'systemd'
-      tags:
-        - mailhog-service-upstart
-
-    - include: service-systemd.yml
-      when: ansible_service_mgr == 'systemd'
-      tags:
-        - mailhog-service-systemd
+- name: not docker
   when: not is_docker_guest
   tags:
     - configuration
     - mailhog
     - mailhog-service
+  block:
+    - name: upstart
+      ansible.builtin.import_tasks: service-upstart.yml
+      when: ansible_service_mgr != 'systemd'
+      tags:
+        - mailhog-service-upstart
+
+    - name: systemd
+      ansible.builtin.import_tasks: service-systemd.yml
+      when: ansible_service_mgr == 'systemd'
+      tags:
+        - mailhog-service-systemd
 
 - name: start and enable service
-  service:
+  ansible.builtin.service:
     name: mailhog
     state: "{{ service_default_state | default('started') }}"
     enabled: "{{ service_default_enabled | default(true) | bool }}"
