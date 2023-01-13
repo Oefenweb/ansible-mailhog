@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: create (download) directory
-  file:
+  ansible.builtin.file:
     path: "{{ mailhog_downloads_path }}"
     state: directory
     owner: root
@@ -12,7 +12,7 @@
     - mailhog-install-download-directory
 
 - name: download
-  get_url:
+  ansible.builtin.get_url:
     url: "https://github.com/mailhog/MailHog/releases/download/{{ mailhog_version }}/MailHog_linux_{{ mailhog_machine_map[ansible_machine] }}"
     dest: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
     owner: root
@@ -24,7 +24,7 @@
     - mailhog-install-download-get
 
 - name: install
-  file:
+  ansible.builtin.file:
     src: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
     dest: "{{ mailhog_install_prefix }}/mailhog"
     state: link
