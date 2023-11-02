@@ -30,7 +30,7 @@ None
 ---
 - hosts: all
   roles:
-    - mailhog
+    - oefenweb.mailhog
 ```
 
 #### Example (with daemon options)
@@ -39,7 +39,7 @@ None
 ---
 - hosts: all
   roles:
-    - mailhog
+    - oefenweb.mailhog
   vars:
     mailhog_options:
       hostname: "{{ inventory_hostname }}"
