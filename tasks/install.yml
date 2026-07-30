@@ -13,8 +13,8 @@
 
 - name: download
   ansible.builtin.get_url:
-    url: "https://github.com/mailhog/MailHog/releases/download/{{ mailhog_version }}/MailHog_linux_{{ mailhog_machine_map[ansible_machine] }}"
-    dest: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
+    url: "https://github.com/mailhog/MailHog/releases/download/{{ mailhog_version }}/MailHog_linux_{{ mailhog_machine_map[ansible_facts['machine']] }}"
+    dest: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_facts['machine']] }}"
     owner: root
     group: root
     mode: 0755
@@ -25,7 +25,7 @@
 
 - name: install
   ansible.builtin.file:
-    src: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_machine] }}"
+    src: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_facts['machine']] }}"
     dest: "{{ mailhog_install_prefix }}/mailhog"
     state: link
     force: true
