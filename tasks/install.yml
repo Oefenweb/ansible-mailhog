@@ -6,7 +6,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   tags:
     - mailhog-install-download
     - mailhog-install-download-directory
@@ -17,7 +17,7 @@
     dest: "{{ mailhog_downloads_path }}/mailhog_{{ mailhog_version }}_{{ mailhog_machine_map[ansible_facts['machine']] }}"
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   notify: restart mailhog
   tags:
     - mailhog-install-download

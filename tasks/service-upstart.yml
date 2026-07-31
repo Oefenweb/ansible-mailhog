@@ -6,7 +6,7 @@
     dest: "{{ mailhog_etc_init_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify: restart mailhog
   tags:
     - mailhog-service-upstart-update
